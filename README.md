@@ -123,7 +123,7 @@ AI Engineer | Python Developer | Automation Engineer
 
 ## 📌 Connect With Me  
 
-- **GitHub:** [your-username](https://github.com/harshshubham987-svg)  
+- **GitHub:** [harshshubham](https://github.com/harshshubham987-svg)  
 
 ---
 
