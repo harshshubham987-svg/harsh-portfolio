@@ -325,7 +325,8 @@ const Projects = () => {
                       className="
                         w-full
                         h-[420px]
-                        object-cover
+                        object-contain
+                        bg-black
                         group-hover:scale-105
                         transition duration-700
                       "

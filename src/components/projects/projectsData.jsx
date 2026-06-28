@@ -6,12 +6,13 @@ import {
 import {
   SiOpencv,
   SiMediapipe,
+  SiTailwindcss,
 } from "react-icons/si";
 
 import {
   TbBrain,
+  TbApi,
 } from "react-icons/tb";
-
 const projectsData = [
 
   {
@@ -92,12 +93,12 @@ const projectsData = [
   {
     id: 3,
 
-    title: "WEATHER CLI",
+    title: "WEATHER DASHBOARD",
 
-    subtitle: "Terminal Intelligence Workflow",
+    subtitle: "Real-Time Weather Analytics Platform",
 
     description:
-      "Real-time weather intelligence system with API integration and futuristic terminal workflows.",
+      "A modern weather dashboard built with React and Open-Meteo API featuring live location tracking, dynamic weather backgrounds, 12-day forecasting, and hourly weather insights.",
 
     image: "/projects/weather.jpg",
 
@@ -111,18 +112,16 @@ const projectsData = [
     tech: [
 
       {
-        icon: <FaPython />,
-        name: "Python",
-      },
-
-      {
         icon: <FaReact />,
         name: "React",
       },
-
       {
-        icon: <TbBrain />,
-        name: "AI",
+        icon: <SiTailwindcss />,
+        name: "Tailwind CSS",
+      },
+      {
+        icon: <TbApi />,
+        name: "Open-Meteo API",
       },
 
     ],
