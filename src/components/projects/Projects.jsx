@@ -1,411 +1,377 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import projectsData from "./projectsData";
 
 const Projects = () => {
+  const [current, setCurrent] = useState(0);
+
+  const prevProject = () => {
+    setCurrent((prev) =>
+      prev === 0 ? projectsData.length - 1 : prev - 1
+    );
+  };
+
+  const nextProject = () => {
+    setCurrent((prev) =>
+      prev === projectsData.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "ArrowLeft") prevProject();
+      if (e.key === "ArrowRight") nextProject();
+    };
+
+    window.addEventListener("keydown", handleKey);
+
+    return () =>
+      window.removeEventListener("keydown", handleKey);
+  }, []);
+
+  const project = projectsData[current];
 
   return (
-
     <section
       id="projects"
       className="relative py-32 px-6 overflow-hidden"
     >
-
-      {/* AMBIENT GLOW */}
+      {/* BACKGROUND GLOW */}
 
       <div
-        className="absolute
-                   top-1/2
-                   left-1/2
-                   -translate-x-1/2
-                   -translate-y-1/2
-                   w-[900px]
-                   h-[900px]
-                   bg-cyan-400/5
-                   blur-[180px]
-                   rounded-full"
+        className="
+          absolute
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          w-[900px]
+          h-[900px]
+          rounded-full
+          bg-cyan-400/5
+          blur-[180px]
+        "
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-
         {/* HEADING */}
 
-        <div className="mb-24">
-
+        <div className="mb-20 text-center">
           <p
-            className="text-cyan-400
-                       tracking-[4px]
-                       text-sm
-                       mb-5"
+            className="
+              text-cyan-400
+              tracking-[4px]
+              text-sm
+              mb-5
+            "
           >
-
             FEATURED PROJECTS
-
           </p>
 
           <h2
-            className="text-5xl
-                       md:text-7xl
-                       font-bold
-                       leading-tight"
+            className="
+              text-5xl
+              md:text-7xl
+              font-bold
+            "
           >
-
             Engineering
-
             <span className="text-cyan-400">
-
               {" "}Future Systems
-
             </span>
-
           </h2>
-
         </div>
 
-        {/* PROJECT STACK */}
+        {/* CAROUSEL */}
 
-        <div className="relative">
+        <div
+          className="
+            relative
+            flex
+            items-center
+            justify-center
+          "
+        >
+          {/* LEFT BUTTON */}
 
-          {projectsData.map((project, index) => (
+          <button
+            onClick={prevProject}
+            className="
+              absolute
+              left-0
+              z-20
 
-            <div
+              w-14
+              h-14
+
+              rounded-full
+
+              border
+              border-cyan-300/20
+
+              bg-black/50
+              backdrop-blur-xl
+
+              flex
+              items-center
+              justify-center
+
+              text-cyan-300
+
+              hover:scale-110
+              transition-all
+            "
+          >
+            <FaArrowLeft />
+          </button>
+
+          {/* PROJECT CARD */}
+
+          <AnimatePresence mode="wait">
+            <motion.div
               key={project.id}
-              className="
-                sticky
-                top-0
-                h-screen
-                flex
-                items-center
-                justify-center
-                
-              "
-              style={{
-                zIndex: index + 1,
+              initial={{
+                opacity: 0,
+                x: 120,
+                scale: 0.95,
               }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                x: -120,
+                scale: 0.95,
+              }}
+              transition={{
+                duration: 0.6,
+              }}
+              className="
+                relative
+                w-full
+                max-w-6xl
+              "
             >
-
-              <motion.div
-
-                initial={false}
-
+              <div
                 className="
-                  w-full
-                  max-w-7xl
+                  relative
+                  rounded-[40px]
+                  border
+                  border-cyan-300/10
+
+                  bg-[#050505]/90
+                  backdrop-blur-2xl
+
+                  shadow-[0_0_80px_rgba(0,255,255,0.08)]
+
+                  grid
+                  lg:grid-cols-2
+                  gap-14
+                  items-center
+
+                  p-8
+                  md:p-12
                 "
               >
+                {/* BIG NUMBER */}
 
-                <div
-                  className={`
-                    relative
-                    overflow-hidden
-                    will-change-transform
-                    rounded-[40px]
-                    border border-cyan-300/10
-                    bg-[#050505]/90
-                    backdrop-blur-2xl
-                    shadow-[0_0_80px_rgba(0,255,255,0.08)]
-
-                    grid
-                    lg:grid-cols-2
-                    gap-14
-                    items-center
-
-                    p-8
-                    md:p-12
-
-                    min-h-[620px]
-
-                    ${project.direction === "right"
-                      ? "lg:[&>*:first-child]:order-2"
-                      : ""
-                    }
-                  `}
+                <h1
+                  className="
+                    absolute
+                    right-8
+                    bottom-0
+                    text-[180px]
+                    font-black
+                    leading-none
+                    text-white/[0.03]
+                  "
                 >
+                  0{project.id}
+                </h1>
 
-                  {/* BIG NUMBER */}
+                {/* LEFT CONTENT */}
 
-                  <h1
-                    className="absolute
-                               right-8
-                               bottom-0
-                               text-[180px]
-                               font-black
-                               leading-none
-                               text-white/[0.03]
-                               pointer-events-none"
+                <div className="relative z-10">
+                  <p
+                    className="
+                      text-cyan-400
+                      tracking-[4px]
+                      text-sm
+                      mb-4
+                    "
                   >
+                    {project.status}
+                  </p>
 
-                    0{project.id}
+                  <h2
+                    className="
+                      text-5xl
+                      font-bold
+                      leading-tight
+                    "
+                  >
+                    {project.title}
+                  </h2>
 
-                  </h1>
+                  <p
+                    className="
+                      mt-4
+                      text-cyan-300
+                      text-2xl
+                    "
+                  >
+                    {project.subtitle}
+                  </p>
 
-                  {/* LEFT */}
+                  <p
+                    className="
+                      mt-8
+                      text-gray-400
+                      leading-relaxed
+                      text-lg
+                    "
+                  >
+                    {project.description}
+                  </p>
 
-                  <div className="relative z-10">
+                  {/* BUTTONS */}
 
-                    <p
-                      className="text-cyan-400
-                                 tracking-[4px]
-                                 text-sm
-                                 mb-4"
+                  <div className="flex gap-4 mt-8">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        px-5 py-3 rounded-2xl
+                        border border-cyan-300/20
+                        text-cyan-300
+                        hover:bg-cyan-400/10
+                        transition-all
+                      "
                     >
+                      VIEW CODE
+                    </a>
 
-                      {project.status}
-
-                    </p>
-
-                    <h2
-                      className="text-5xl
-                                 md:text-6xl
-                                 font-bold
-                                 leading-[1]"
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        px-5 py-3 rounded-2xl
+                        border border-cyan-300/10
+                        text-white
+                        hover:bg-white/[0.06]
+                        transition-all
+                      "
                     >
-
-                      {project.title}
-
-                    </h2>
-
-                    <p
-                      className="mt-5
-                                 text-cyan-300
-                                 text-2xl"
-                    >
-
-                      {project.subtitle}
-
-                    </p>
-
-                    <p
-                      className="mt-8
-                                 text-gray-400
-                                 text-lg
-                                 leading-relaxed
-                                 max-w-xl"
-                    >
-
-                      {project.description}
-
-                    </p>
-                    
-                    
-                    {/* PROJECT BUTTONS */}
-
-                    <div className="flex gap-4 mt-8">
-
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="
-                          px-5
-                          py-3
-                          rounded-2xl
-
-                          border border-cyan-300/20
-                          bg-cyan-400/5
-
-                          text-cyan-300
-                          text-sm
-                          tracking-[2px]
-
-                          transition-all
-                          duration-300
-
-                          hover:bg-cyan-400/10
-                          hover:border-cyan-300/40
-                          hover:-translate-y-1
-                        "
-                      >
-
-                        VIEW CODE
-
-                      </a>
-
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="
-                          px-5
-                          py-3
-                          rounded-2xl
-
-                          border border-cyan-300/10
-                          bg-white/[0.03]
-
-                          text-white
-                          text-sm
-                          tracking-[2px]
-
-                          transition-all
-                          duration-300
-
-                          hover:bg-white/[0.06]
-                          hover:-translate-y-1
-                        "
-                      >
-
-                        LIVE DEMO
-
-                      </a>
-
-                    </div>
-
-
-
-                    {/* TECH */}
-
-                    <div className="flex flex-wrap gap-4 mt-10">
-
-                      {project.tech.map((tech, index) => (
-
-                        <motion.div
-
-                          key={index}
-
-                          whileHover={{
-                            y: -4,
-                            scale: 1.05,
-                          }}
-
-                          className="flex
-                                     items-center
-                                     gap-3
-                                     border border-cyan-300/10
-                                     bg-white/[0.03]
-                                     backdrop-blur-xl
-                                     px-5
-                                     py-3
-                                     rounded-2xl
-                                     text-cyan-200"
-                        >
-
-                          <div className="text-xl">
-
-                            {tech.icon}
-
-                          </div>
-
-                          <span
-                            className="tracking-[2px]
-                                       text-sm"
-                          >
-
-                            {tech.name}
-
-                          </span>
-
-                        </motion.div>
-
-                      ))}
-
-                    </div>
-
+                      LIVE DEMO
+                    </a>
                   </div>
 
-                  {/* RIGHT */}
+                  {/* TECH */}
 
-                  <motion.div
-
-                    whileHover={{
-                      scale: 1.02,
-                    }}
-
-                    transition={{
-                      duration: 0.4,
-                    }}
-
-                    className="relative group"
-                  >
-
-                    {/* IMAGE GLOW */}
-
-                    <div
-                      className="absolute
-                                 inset-0
-                                 bg-cyan-400/10
-                                 blur-[100px]
-                                 rounded-[40px]"
-                    />
-
-                    {/* IMAGE */}
-
-                    <div
-                      className="relative
-                                 overflow-hidden
-                                 rounded-[30px]
-                                 border border-cyan-300/10"
-                    >
-
-                      <img
-
-                        src={project.image}
-
-                        alt={project.title}
-
-                        className="w-full
-                                   h-[420px]
-                                   object-cover
-                                   transition
-                                   duration-700
-                                   group-hover:scale-105"
-                      />
-
-                      {/* OVERLAY */}
-
+                  <div className="flex flex-wrap gap-4 mt-10">
+                    {project.tech.map((tech, index) => (
                       <div
-                        className="absolute
-                                   inset-0
-                                   bg-gradient-to-t
-                                   from-black/70
-                                   to-transparent"
-                      />
-
-                      {/* LABEL */}
-
-                      <div
-                        className="absolute
-                                   top-5
-                                   left-5
-                                   border border-cyan-300/20
-                                   bg-black/40
-                                   backdrop-blur-xl
-                                   px-5
-                                   py-3
-                                   rounded-full"
+                        key={index}
+                        className="
+                          flex items-center gap-3
+                          border border-cyan-300/10
+                          bg-white/[0.03]
+                          px-5 py-3
+                          rounded-2xl
+                          text-cyan-200
+                        "
                       >
+                        <div className="text-xl">
+                          {tech.icon}
+                        </div>
 
-                        <p
-                          className="text-xs
-                                     tracking-[4px]
-                                     text-cyan-300"
-                        >
-
-                          AI SYSTEM
-
-                        </p>
-
+                        <span className="text-sm tracking-[2px]">
+                          {tech.name}
+                        </span>
                       </div>
-
-                    </div>
-
-                  </motion.div>
-
+                    ))}
+                  </div>
                 </div>
 
-              </motion.div>
+                {/* RIGHT IMAGE */}
 
-            </div>
+                <div className="relative group">
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-cyan-400/10
+                      blur-[100px]
+                      rounded-[40px]
+                    "
+                  />
 
-          ))}
+                  <div
+                    className="
+                      relative
+                      overflow-hidden
+                      rounded-[30px]
+                      border border-cyan-300/10
+                    "
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="
+                        w-full
+                        h-[420px]
+                        object-cover
+                        group-hover:scale-105
+                        transition duration-700
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
+          {/* RIGHT BUTTON */}
+
+          <button
+            onClick={nextProject}
+            className="
+              absolute
+              right-0
+              z-20
+
+              w-14
+              h-14
+
+              rounded-full
+
+              border
+              border-cyan-300/20
+
+              bg-black/50
+              backdrop-blur-xl
+
+              flex
+              items-center
+              justify-center
+
+              text-cyan-300
+
+              hover:scale-110
+              transition-all
+            "
+          >
+            <FaArrowRight />
+          </button>
         </div>
-
       </div>
-
     </section>
-
   );
 };
 
 export default Projects;
-

@@ -27,10 +27,9 @@ const projectsData = [
     image: "/projects/zenith.jpg",
 
     status: "ACTIVE DEVELOPMENT",
-
-    direction: "left",
     
     github: "https://github.com/yourusername/project",
+    demo: "https://your-demo-link.com",
 
     tech: [
 
@@ -66,9 +65,9 @@ const projectsData = [
 
     status: "IN PROGRESS",
 
-    direction: "right",
 
     github: "https://github.com/yourusername/project",
+    demo: "https://your-demo-link.com",
 
     tech: [
 
@@ -104,7 +103,10 @@ const projectsData = [
 
     status: "COMPLETED",
 
-    direction: "left",
+    
+    github: "https://github.com/yourusername/project",
+    demo: "https://your-demo-link.com",
+
 
     tech: [
 
