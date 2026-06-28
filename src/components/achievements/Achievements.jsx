@@ -1,12 +1,37 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import achievementsData from "./achievementsData";
 import AchievementCard from "./AchievementCard";
 
 const Achievements = () => {
+  const [currentBatch, setCurrentBatch] = useState(0);
+
+  const batchSize = 3;
+  const totalBatches = Math.ceil(
+    achievementsData.length / batchSize
+  );
+
+  const nextBatch = () => {
+    setCurrentBatch((prev) =>
+      prev === totalBatches - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevBatch = () => {
+    setCurrentBatch((prev) =>
+      prev === 0 ? totalBatches - 1 : prev - 1
+    );
+  };
+
+  const visibleAchievements =
+    achievementsData.slice(
+      currentBatch * batchSize,
+      currentBatch * batchSize + batchSize
+    );
 
   return (
-
     <section
       id="achievements"
       className="
@@ -16,7 +41,6 @@ const Achievements = () => {
         overflow-hidden
       "
     >
-
       {/* GRID BACKGROUND */}
 
       <div
@@ -52,42 +76,11 @@ const Achievements = () => {
         "
       />
 
-      <div
-        className="
-          relative
-          z-10
-          max-w-7xl
-          mx-auto
-        "
-      >
+      <div className="relative z-10 max-w-7xl mx-auto">
 
         {/* HEADING */}
 
-        <motion.div
-
-          initial={{
-            opacity: 0,
-            y: 40,
-          }}
-
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-
-          transition={{
-            duration: 0.8,
-          }}
-
-          viewport={{
-            once: true,
-          }}
-
-          className="
-            text-center
-            mb-24
-          "
-        >
+        <div className="text-center mb-20">
 
           <p
             className="
@@ -97,9 +90,7 @@ const Achievements = () => {
               mb-6
             "
           >
-
             ENGINEERING MILESTONES
-
           </p>
 
           <h2
@@ -107,66 +98,123 @@ const Achievements = () => {
               text-5xl
               md:text-7xl
               font-bold
-              leading-tight
             "
           >
-
             Achievement
-
             <span className="text-cyan-400">
-
               {" "}System
-
             </span>
-
           </h2>
 
-          <p
+        </div>
+
+        {/* SLIDER */}
+
+        <div className="relative flex items-center">
+
+          {/* LEFT BUTTON */}
+
+          <button
+            onClick={prevBatch}
             className="
-              mt-8
-              text-gray-400
-              text-lg
-              leading-relaxed
-              max-w-3xl
-              mx-auto
+              absolute
+              left-[-30px]
+              z-20
+
+              w-14
+              h-14
+
+              rounded-full
+              border
+              border-cyan-300/20
+
+              bg-black/50
+              backdrop-blur-xl
+
+              flex
+              items-center
+              justify-center
+
+              text-cyan-300
             "
           >
+            <FaArrowLeft />
+          </button>
 
-            A collection of milestones representing
-            continuous learning, intelligent system
-            building and futuristic engineering exploration.
+          {/* CARDS */}
 
-          </p>
+          <AnimatePresence mode="wait">
 
-        </motion.div>
+            <motion.div
+              key={currentBatch}
+              initial={{
+                opacity: 0,
+                x: 120,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              exit={{
+                opacity: 0,
+                x: -120,
+              }}
+              transition={{
+                duration: 0.5,
+              }}
+              className="
+                grid
+                md:grid-cols-3
+                gap-8
+                w-full
+              "
+            >
+              {visibleAchievements.map(
+                (achievement, index) => (
+                  <AchievementCard
+                    key={achievement.id}
+                    achievement={achievement}
+                    index={index}
+                  />
+                )
+              )}
+            </motion.div>
 
-        {/* ACHIEVEMENTS GRID */}
+          </AnimatePresence>
 
-        <div
-          className="
-            grid
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-8
-          "
-        >
+          {/* RIGHT BUTTON */}
 
-          {achievementsData.map((achievement, index) => (
+          <button
+            onClick={nextBatch}
+            className="
+              absolute
+              right-[-30px]
+              z-20
 
-            <AchievementCard
-              key={achievement.id}
-              achievement={achievement}
-              index={index}
-            />
+              w-14
+              h-14
 
-          ))}
+              rounded-full
+              border
+              border-cyan-300/20
+
+              bg-black/50
+              backdrop-blur-xl
+
+              flex
+              items-center
+              justify-center
+
+              text-cyan-300
+            "
+          >
+            <FaArrowRight />
+          </button>
 
         </div>
 
       </div>
-
     </section>
-
   );
 };
 
