@@ -104,8 +104,8 @@ const projectsData = [
     status: "COMPLETED",
 
     
-    github: "https://github.com/yourusername/project",
-    demo: "https://your-demo-link.com",
+    github: "https://github.com/harshshubham987-svg/weather-dashboard",
+    demo: "https://weather-dashboard-eosin-delta.vercel.app/",
 
 
     tech: [
