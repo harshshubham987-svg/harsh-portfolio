@@ -14,6 +14,7 @@ import Contact from "../components/contact/Contact";
 import Journey from "../components/journey/Journey";
 import Achievements from "../components/achievements/Achievements";
 import Certificates from "../components/certificates/Certificates";
+import Footer from "../components/footer/Footer";
 
 const Home = () => {
   return (
@@ -184,6 +185,7 @@ const Home = () => {
       <Certificates />
       <SectionDivider />
       <Contact />
+      <Footer />
       
 
     </motion.main>
