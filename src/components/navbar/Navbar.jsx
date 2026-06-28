@@ -62,10 +62,36 @@ useEffect(() => {
 
         {/* Logo */}
 
-        <div>
-          <h1 className="text-2xl font-bold text-cyan-400 tracking-wider">
+        <div className="flex items-center gap-4">
+
+          <img
+            src="/zenith-logo.png"
+            alt="Zenith Logo"
+            className="
+              w-11
+              h-11
+
+              object-contain
+
+              drop-shadow-[0_0_15px_rgba(0,255,255,0.45)]
+
+              hover:scale-105
+              transition-all
+              duration-300
+            "
+          />
+
+          <h1
+            className="
+              text-cyan-300
+              font-bold
+              text-2xl
+              tracking-wide
+            "
+          >
             HARSH SHUBHAM SINGH
           </h1>
+
         </div>
 
         {/* Nav Links */}
