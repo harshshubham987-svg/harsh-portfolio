@@ -324,7 +324,7 @@ const Projects = () => {
                       alt={project.title}
                       className="
                         w-full
-                        h-[420px]
+                        h-[400px]
                         object-contain
                         bg-black
                         group-hover:scale-105
