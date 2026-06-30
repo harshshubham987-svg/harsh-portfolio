@@ -1,6 +1,7 @@
 import {
   FaPython,
   FaReact,
+  FaFolderOpen,
 } from "react-icons/fa";
 
 import {
@@ -12,6 +13,7 @@ import {
 import {
   TbBrain,
   TbApi,
+  TbAutomation,
 } from "react-icons/tb";
 const projectsData = [
 
@@ -126,6 +128,44 @@ const projectsData = [
 
     ],
   },
+  {
+    id: 4,
+
+    title: "SMART FILE ORGANIZER",
+
+    subtitle: "Intelligent Workflow Automation",
+
+    description:
+      "A Python-based automation system that intelligently organizes files into categorized folders based on extensions, improving workflow efficiency and file management.",
+
+    image: "/projects/sfm.png",
+
+    status: "COMPLETED",
+
+
+    github: "https://github.com/harshshubham987-svg/smart-file-organizer-v1",
+    demo: "https://drive.google.com/file/d/1cWruKL6CKS2JMWLR2cMnndQ-YyaagaV4/view?usp=sharing",
+
+    tech: [
+
+      {
+        icon: <FaPython />,
+        name: "Python",
+      },
+
+      {
+        icon: <FaFolderOpen />,
+        name: "File System",
+      },
+
+      {
+        icon: <TbAutomation />,
+        name: "Automation",
+      },
+
+    ],
+  },
+
 
 ];
 
